@@ -3,16 +3,16 @@ const config = require("../../config/config");
 const env = process.env.NODE_ENV || "development";
 const dbConfig = config[env];
 
-console.log(process.env.DB_NAME)
+console.log(dbConfig.password)
 // Set up Sequelize connection
 const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  'postgres',
+  dbConfig.database,
+  dbConfig.username,
+  String(dbConfig.password) ||"postgres",
   {
-    host: process.env.DB_HOST,
+    host: dbConfig.host,
     dialect: 'postgres',
-    port: process.env.DB_PORT,
+    port: dbConfig.port,
   },
 );
 

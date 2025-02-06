@@ -19,10 +19,15 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    role:{
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
   },
   {
     sequelize,  // assuming you have sequelize configured elsewhere
     modelName: 'User',
+    freezeTableName:true,
     hooks: {
       beforeCreate: async (user) => {
         // Hash the password before storing it in the DB
