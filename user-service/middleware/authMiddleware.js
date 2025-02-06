@@ -17,4 +17,9 @@ const authenticateJWT = (req, res, next) => {
   }
 };
 
+//Middleware to authorized users
+const authorizeUser =  (req,res,next)=>{
+  
+}
+
 module.exports = { authenticateJWT };

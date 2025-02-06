@@ -26,7 +26,7 @@ User.init(
   },
   {
     sequelize,  // assuming you have sequelize configured elsewhere
-    modelName: 'User',
+    modelName: 'task_management',
     freezeTableName:true,
     hooks: {
       beforeCreate: async (user) => {
@@ -37,5 +37,9 @@ User.init(
     },
   }
 );
+
+User.prototype.comparePassword = async function (password) {
+  return bcrypt.compare(password, this.password); // Compare hashed passwords
+};
 
 module.exports = User;
