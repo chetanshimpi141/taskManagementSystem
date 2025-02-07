@@ -6,42 +6,46 @@ const User = require('../models/User');
 //common function for login admin/employee
 const userLogin = async (req,res,role) =>{
   const {email, password} = req.body;
-  // if(endpoint === 'login' || 'admin'){
-  //   ne
-  // } 
   try {
-    console.log("in email verification");
     // Check if the user is present in db or not
+    console.log("Before email verification");
+    
     const existingUser = await User.findOne({ where: { email } });
     if (!existingUser) {
-      
-      throw new Error('User not found');
+      console.log("After email verification");
+      return res.status(400).json({ message: `User not found` });
     }
-
     //check role of the user
-    if(existingUser.role !== role){
-      console.log("in role verification");
-      throw new Error(`not authorized user ${role}`);
+    
+    const isMatchRole = await bcrypt.compare(role, existingUser.role);
+    console.log(`Before role verification   ${isMatchRole}`);
+
+    console.log(`Before role verification   ${existingUser.role}`);
+    if(!isMatchRole){
+      console.log("After role verification");
+      return res.status(400).json({ message: `not authorized user ${role}` });
     }
     // Check if the password matches
+    console.log("Before password verification");
     const isMatch = await bcrypt.compare(password, existingUser.password);
     if (!isMatch) {
+      console.log("After password verification");
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
     const payload = { id: existingUser.id, email: existingUser.email };
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
-    return {
+    return { 
       message: 'Login successful',
       token,
     };
-  } catch (error) {
+  } catch (error) { 
     res.status(500).json({ message: 'Server error', error });
   }
 }
 
 
-// User Registration
+// User Registration 
 const registerUser = async (req, res) => {
   const { username, email, password, role} = req.body;
 
