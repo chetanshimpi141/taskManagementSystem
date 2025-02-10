@@ -28,7 +28,7 @@ User.init(
     }
   },
   {
-    sequelize,  // assuming you have sequelize configured elsewhere
+    sequelize, 
     modelName: 'task_management',
     freezeTableName:true, 
     hooks: {

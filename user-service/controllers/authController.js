@@ -30,7 +30,7 @@ const User = require('../models/User');
 //   }
 // };
 
-const loginUser = async (req, res) => {
+exports.loginUser = async (req, res) => {
   try {
     const response = await userLogin(req,res, 'employee'); 
     return res.status(200).json(response);
@@ -39,7 +39,7 @@ const loginUser = async (req, res) => {
   }
 };
 
-const loginAdmin = async (req, res) => {
+exports.loginAdmin = async (req, res) => {
   try {
     const response = await userLogin(req, res,'admin');  
     return res.status(200).json(response);
@@ -49,11 +49,10 @@ const loginAdmin = async (req, res) => {
 };
 
 // Logging middleware to log the last word of the endpoint
-const logRequest = (req, next) => {
+exports.logRequest = (req, next) => {
   const { method, originalUrl } = req;  // Extract HTTP method and original URL from the request
   const lastWord = originalUrl.split('/').filter(Boolean).pop();  // Get the last segment of the URL
   return (`${method} ${lastWord}`);  // Log the HTTP method and the last word of the URL
   next();  // Pass control to the next middleware or route handler
 };
 
-module.exports = { loginUser, loginAdmin ,logRequest};
