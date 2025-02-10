@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const { sequelize } = require('../config/sequelize'); // Import Sequelize
+const { Op } = require('sequelize');
 
 
 //common function for login admin/employee
@@ -10,7 +12,12 @@ const userLogin = async (req,res,role) =>{
     // Check if the user is present in db or not
     console.log("Before email verification");
     
-    const existingUser = await User.findOne({ where: { email } });
+    const existingUser = await User.findOne({
+      where: sequelize.where(
+        sequelize.fn('LOWER', sequelize.col('email')), 
+        email.toLowerCase()
+      ),
+    });
     if (!existingUser) {
       console.log("After email verification");
       return res.status(400).json({ message: `User not found` });
@@ -35,10 +42,10 @@ const userLogin = async (req,res,role) =>{
 
     const payload = { id: existingUser.id, email: existingUser.email };
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
-    return { 
+    res.json( { 
       message: 'Login successful',
       token,
-    };
+    });
   } catch (error) { 
     res.status(500).json({ message: 'Server error', error });
   }
