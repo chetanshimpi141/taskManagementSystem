@@ -1,10 +1,18 @@
+const { response } = require('express');
 const Task = require('../models/Task');
+const notifyUser= require("../services/taskService");
+
 
 // Create
 exports.createTask = async (req, res) => {
   try {
-    const { title, description, assigneeId } = req.body;    
-    const task = await Task.create({ title, description, assigneeId });
+    const { title, description, assigneeId, assigneeEmail } = req.body;    
+    const task = await Task.create({ title, description, assigneeId, assigneeEmail});
+    const jsonData = res.jsonData();
+    // Notify the assigned user
+    if (assigneeEmail) {
+        await notifyUser(assigneeEmail, title,jsonData);
+    }
     res.status(201).json(task);
   } catch (error) {
     res.status(500).json({ message: 'Server error', error });

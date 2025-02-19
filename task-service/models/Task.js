@@ -23,6 +23,11 @@ Task.init(
       type: DataTypes.INTEGER,
       allowNull: true,
     },
+    assigneeEmail: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    }
   },
   {
     sequelize,

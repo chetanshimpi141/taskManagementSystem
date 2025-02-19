@@ -10,6 +10,10 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "jsonwebtoken": "^9.0.2"
+    "axios": "^1.7.9",
+    "bullmq": "^5.41.2",
+    "ioredis": "^5.5.0",
+    "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^6.10.0"
   }
 }

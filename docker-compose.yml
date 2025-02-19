@@ -1,0 +1,42 @@
+
+services:
+  redis:
+    image: redis:latest
+    container_name: redis-bullmq
+    restart: always
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+  bullmq-ui:
+    image: hive/bull-arena
+    container_name: bullmq-ui
+    restart: always
+    ports:
+      - "3001:4567"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - redis
+
+  notification-service:
+    build: ./services/notification-service
+    container_name: notification-service
+    restart: always
+    ports:
+      - "5003:5003"
+    depends_on:
+      - redis
+    environment:
+      - REDIS_HOST=localhost
+      - REDIS_PORT=6379
+      - EMAIL_HOST=smtp.gmail.com
+      - EMAIL_PORT=587
+      - EMAIL_USER=your-shimpic676@gmail.com
+      - EMAIL_PASS=chetzpass@1425
+
+volumes:
+  redis_data:
+    driver: local
