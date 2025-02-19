@@ -2,6 +2,7 @@ const { Queue } = require ("bullmq");
 const dotenv = require ("dotenv");
 
 dotenv.config();
+console.log( process.env.REDIS_HOST);
 
 const notificationQueue = new Queue("notification-queue", {connection: { host: process.env.REDIS_HOST, port: process.env.REDIS_PORT }});
 

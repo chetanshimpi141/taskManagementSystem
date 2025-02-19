@@ -8,10 +8,10 @@ const worker = new Worker("notification-queue",
   async (job) => {
     console.log("Processing Notification:", job.data);
 
-    if (job.data.type === "email") {
-        console.log("in send emil ")
+    //if (job.data.type === "assigneeEmail") {
+        console.log(`in send emil  ${job.data} `)
       await sendEmail(job.data);
-    }
+    //}
 
     console.log("Notification sent:", job.data);
   },

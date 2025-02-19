@@ -1,25 +1,26 @@
-const nodemailer = require ("nodemailer");
-const dotenv = require ("dotenv");
+const nodemailer = require("nodemailer");
+const dotenv = require("dotenv");
 
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
   port: process.env.EMAIL_PORT,
-  secure: false,
+  secure: process.env.EMAIL_PORT == 465,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
 });
 
-const sendEmail = async ({ to, subject, text }) => {
+const sendEmail = async ({ assigneeEmail , title ,description }) => {
+  console.log("SMTP Config:", process.env.EMAIL_HOST, process.env.EMAIL_PORT);
   try {
     const info = await transporter.sendMail({
       from: `"Task Manager" <${process.env.EMAIL_USER}>`,
-      to,
-      subject,
-      text,
+      to:assigneeEmail,
+      subject: "New Task Assigned",
+      text: `You have a new task assigned: "${title} \n Task Description : ${description}"`,
     });
 
     console.log("Email sent: ", info.messageId);
@@ -28,4 +29,5 @@ const sendEmail = async ({ to, subject, text }) => {
     throw error;
   }
 };
+
 module.exports = sendEmail;

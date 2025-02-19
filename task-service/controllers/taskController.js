@@ -8,14 +8,17 @@ exports.createTask = async (req, res) => {
   try {
     const { title, description, assigneeId, assigneeEmail } = req.body;    
     const task = await Task.create({ title, description, assigneeId, assigneeEmail});
-    const jsonData = res.jsonData();
+    //const jsonData = res.jsonData();
+
+    console.log(task);
+    
     // Notify the assigned user
-    if (assigneeEmail) {
-        await notifyUser(assigneeEmail, title,jsonData);
-    }
+    //if (assigneeEmail) {
+        await notifyUser(assigneeEmail, title,task);
+    //}
     res.status(201).json(task);
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error });
+   res.status(500).json({ message: 'Server error', error });
   }
 };
 
