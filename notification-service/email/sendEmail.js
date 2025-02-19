@@ -13,14 +13,16 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const sendEmail = async ({ assigneeEmail , title ,description }) => {
+const sendEmail = async ({ assigneeEmail , title ,description, assigneeId }) => {
   console.log("SMTP Config:", process.env.EMAIL_HOST, process.env.EMAIL_PORT);
   try {
     const info = await transporter.sendMail({
       from: `"Task Manager" <${process.env.EMAIL_USER}>`,
       to:assigneeEmail,
       subject: "New Task Assigned",
-      text: `You have a new task assigned: "${title} \n Task Description : ${description}"`,
+      text: `You have a new task assigned: ${title}
+            \n Task Description : ${description}
+            \n Task ID :${assigneeId}`,
     });
 
     console.log("Email sent: ", info.messageId);
