@@ -1,5 +1,5 @@
 const { Sequelize } = require('sequelize');
-const config = require("../../config/config");
+const config = require("./config");
 const env = process.env.NODE_ENV || "development";
 const dbConfig = config[env];
 
@@ -7,7 +7,7 @@ const dbConfig = config[env];
 const sequelize = new Sequelize(
   dbConfig.database,
   dbConfig.username,
-  String(dbConfig.password) ||"postgres",
+  String(dbConfig.password) ||"uCUgvKLTGhVRAYYiowbpIgsAwKeDwkUX",
 
   {
     host: dbConfig.host,

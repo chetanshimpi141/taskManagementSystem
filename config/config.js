@@ -1,11 +1,11 @@
 module.exports = {
   development: {
     username: "postgres",
-    password: "postgres",
-    database: "task_management",
-    host: "localhost",
+    password: "uCUgvKLTGhVRAYYiowbpIgsAwKeDwkUX",
+    database: "railway",
+    host: "shortline.proxy.rlwy.net",
     dialect: "postgres",
-    port: 5432,
+    port: 39339,
   },
   test: {
     username: "postgres",

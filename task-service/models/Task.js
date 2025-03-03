@@ -5,6 +5,11 @@ class Task extends Model {}
 
 Task.init(
   {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
     title: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -27,11 +32,20 @@ Task.init(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+      field: 'assignee_email'
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE
     }
   },
   {
     sequelize,
-    modelName: 'task',
+    tableName: 'task',
     freezeTableName: true,
     timestamps: true,
   }

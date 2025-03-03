@@ -58,13 +58,16 @@ const registerUser = async (req, res) => {
 
   try {
     // Check if the user already exists
-    const existingUser = await User.findOne({ where: { email } });
+    const existingUser = await User.findOne({ where: { email },attributes:["username"] });
+    console.log("After Existing user state");
+    
     if (existingUser) {
       return res.status(400).json({ message: 'User already exists' });
     }
+    
 
     // Create a new user
-    const newUser = await User.create({ username, email, password ,role});
+    const newUser = await User.create({ username, email, password ,role,createdAt:Date.now(),updatedAt:Date.now()});
     res.status(201).json({ message: 'User created successfully' });
   } catch (error) {
     res.status(500).json({ message: 'Server error', error });

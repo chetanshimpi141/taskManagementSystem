@@ -25,12 +25,21 @@ User.init(
     role:{
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE
     }
   },
   {
     sequelize, 
-    modelName: 'task_management',
+    tableName: 'user_management',
     freezeTableName:true, 
+    timestamps: true, 
     hooks: {
       beforeCreate: async (user) => {
         // Hash the password before storing it in the DB

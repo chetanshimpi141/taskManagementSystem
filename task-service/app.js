@@ -19,5 +19,5 @@ sequelize.sync()
   });
 
 
-const PORT = process.env.PORT || 4002;
+const PORT = process.env.USER_SERVICE_PORT || 4002;
 app.listen(PORT, () => console.log(`Task Service running on port ${PORT}`));

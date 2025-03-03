@@ -5,9 +5,12 @@ const notifyUser= require("../services/taskService");
 
 // Create
 exports.createTask = async (req, res) => {
+  console.log("Performing create task action");
   try {
-    const { title, description, assigneeId, assigneeEmail } = req.body;    
-    const task = await Task.create({ title, description, assigneeId, assigneeEmail});
+    const { title, description, assigneeId, assigneeEmail } = req.body;   
+    console.log("Performing create task action");
+     
+    const task = await Task.create({ title, description, assigneeId, assigneeEmail,createdAt:Date.now(),updatedAt:Date.now()});
     //const jsonData = res.jsonData();
 
     console.log(task);
@@ -18,6 +21,8 @@ exports.createTask = async (req, res) => {
     //}
     res.status(201).json(task);
   } catch (error) {
+   console.log(error);
+   
    res.status(500).json({ message: 'Server error', error });
   }
 };
