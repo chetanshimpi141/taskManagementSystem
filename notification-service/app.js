@@ -1,7 +1,7 @@
 const express= require("express");
 const dotenv = require ("dotenv");
 const cors = require ("cors");
-const { addNotificationJob } = require ("./queue/queue");
+const { addNotificationJob } = require ("./queue");
 
 dotenv.config();
 

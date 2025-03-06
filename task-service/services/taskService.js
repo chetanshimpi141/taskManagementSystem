@@ -1,6 +1,6 @@
 const axios = require("axios");
 const dotenv = require("dotenv")
-const { addNotificationJob } = require ("../../notification-service/queue/queue");
+const { addNotificationJob } = require ("../../notification-service/queue");
 const { response } = require("express");
 dotenv.config();
 

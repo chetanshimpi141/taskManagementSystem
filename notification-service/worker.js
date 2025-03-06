@@ -1,6 +1,6 @@
 const {Worker} = require("bullmq");
 const dotenv  = require ("dotenv");
-const sendEmail  = require ("../email/sendEmail.js");
+const sendEmail  = require ("./email/sendEmail.js");
 
 dotenv.config();
 
