@@ -15,7 +15,7 @@ const worker = new Worker("notification-queue",
 
     console.log("Notification sent:", job.data);
   },
-  { connection: { host: process.env.REDIS_HOST, port: process.env.REDIS_PORT } }
+  { connection: { host: process.env.REDIS_HOST, port: process.env.REDIS_PORT,password: process.env.REDIS_PASSWORD } }
 );
 
 worker.on("failed", (job, err) => {
