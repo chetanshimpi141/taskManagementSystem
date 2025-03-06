@@ -5,7 +5,7 @@ const dbConfig = config[env];
 
 // Set up Sequelize connection
 const sequelize = new Sequelize(
-  dbConfig.database,
+  'railway',
   dbConfig.username,
   String(dbConfig.password) ||"uCUgvKLTGhVRAYYiowbpIgsAwKeDwkUX",
 
